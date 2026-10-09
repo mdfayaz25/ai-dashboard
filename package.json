@@ -1,0 +1,21 @@
+{
+  "name": "ai-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI Dashboard — a GenAI workbench for Claude and AWS Bedrock with streaming playground, prompt library, run history and usage analytics.",
+  "author": "Mohammed Fayaz <kmdfayaz25@gmail.com>",
+  "license": "MIT",
+  "workspaces": ["client", "server"],
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c cyan,magenta \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w server && npm run build -w client",
+    "start": "NODE_ENV=production npm start -w server",
+    "seed": "npm run seed -w server",
+    "typecheck": "npm run typecheck -w server && npm run typecheck -w client",
+    "test": "npm test -w server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "engines": { "node": ">=20" }
+}
