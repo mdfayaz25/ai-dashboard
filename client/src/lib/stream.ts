@@ -6,6 +6,10 @@ type Handlers = { onMeta?: (m: { startedAt: string }) => void; onDelta: (text: s
 
 /** POSTs a run and reads the Server-Sent Events stream with fetch, so the auth header can be sent. */
 export async function streamRun(body: RunRequest, h: Handlers, signal: AbortSignal) {
+  if (import.meta.env.VITE_DEMO === 'true') {
+    const { streamDemoRun } = await import('../demo/server');
+    return streamDemoRun(body, h, signal);
+  }
   let res: Response;
   try {
     res = await fetch(`${import.meta.env.VITE_API_URL ?? '/api'}/runs`, {

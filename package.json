@@ -12,7 +12,9 @@
     "start": "NODE_ENV=production npm start -w server",
     "seed": "npm run seed -w server",
     "typecheck": "npm run typecheck -w server && npm run typecheck -w client",
-    "test": "npm test -w server"
+    "test": "npm test -w server",
+    "demo:seed": "npm run seed -w server && npm run demo:export -w server",
+    "build:pages": "VITE_DEMO=true VITE_BASE=/ai-dashboard/ npm run build -w client && cp client/dist/index.html client/dist/404.html && touch client/dist/.nojekyll"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

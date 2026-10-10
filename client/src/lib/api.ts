@@ -10,6 +10,14 @@ export const tokenStore = {
 
 export const api = axios.create({ baseURL: import.meta.env.VITE_API_URL ?? '/api' });
 
+// Static GitHub Pages build: answer API calls in the browser instead of hitting a server.
+if (import.meta.env.VITE_DEMO === 'true') {
+  api.defaults.adapter = async (config) => {
+    const { demoAdapter } = await import('../demo/server');
+    return demoAdapter(config);
+  };
+}
+
 api.interceptors.request.use((config) => {
   const token = tokenStore.get();
   if (token) config.headers.Authorization = `Bearer ${token}`;
